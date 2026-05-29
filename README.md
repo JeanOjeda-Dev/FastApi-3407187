@@ -32,7 +32,7 @@ En el desarrollo de software actual, la **Programación Orientada a Objetos (POO
 ---
 
 
-<img src="AQUÍ_VA_EL_LINK_DE_TU_IMAGEN" alt="Resultado de la API" width="750"/>
+<img src="img/image.png" alt="Resultado de la API" width="750"/>
 
 ---
 
