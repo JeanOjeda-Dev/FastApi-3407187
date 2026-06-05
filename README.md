@@ -14,7 +14,7 @@ Este proyecto consiste en la creación de una API REST funcional utilizando el f
 ### Tecnologías Utilizadas
 * **Python**
 * **FastAPI**
-* **Pydantic** (BaseModel)
+* **Pydantic** BaseModel
 * **Uvicorn** / FastAPI Dev (Servidor de desarrollo)
 * **Git / GitHub** (Control de versiones)
 
