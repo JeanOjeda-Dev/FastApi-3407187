@@ -1,86 +1,53 @@
-# Importa la clase FastAPI para crear la API
-# e HTTPException para manejar errores personalizados
+
 from fastapi import FastAPI, HTTPException
 
-# Importa BaseModel de Pydantic para definir modelos de datos
+
 from pydantic import BaseModel
 
-# Crea una instancia de la aplicación FastAPI
 app = FastAPI()
 
 
-# Modelo para representar un cliente
+
 class Cliente(BaseModel):
 
-    # Identificador único del cliente
     id: int
-
-    # Nombre del cliente
     nombre: str
-
-    # Descripción opcional del cliente
     descripcion: str | None = None
 
 
 # Modelo para representar una factura
 class Factura(BaseModel):
 
-    # Identificador único de la factura
     id: int
-
-    # Fecha de emisión de la factura
     fecha: str
-
-    # Valor total de la factura
     valor_total: float
-
-    # Cliente asociado a la factura
-    # Se guarda como texto (nombre o ID)
     cliente: str
 
 
 # Modelo para representar una transacción
 class Transaccion(BaseModel):
 
-    # Identificador único de la transacción
     id: int
-
-    # Valor unitario del producto o servicio
     vr_unitario: float
-
-    # Cantidad de productos o servicios
     cantidad: int
-
-    # ID de la factura asociada
     factura_id: int
 
 
-# Lista que almacenará los clientes en memoria
 lista_clientes = []
-
-# Lista que almacenará las facturas en memoria
 lista_facturas = []
-
-# Lista que almacenará las transacciones en memoria
 lista_transacciones = []
 
 
 # Endpoint GET para obtener todos los clientes
 @app.get("/clientes")
 def listar_clientes():
-
-    # Retorna la lista completa de clientes
     return {"Clientes": lista_clientes}
 
 
 # Endpoint GET para buscar un cliente por ID
 @app.get("/clientes/{id}")
 def obtener_cliente_por_id(id: int):
-
-    # Recorre todos los clientes almacenados
     for cliente in lista_clientes:
-
-        # Verifica si el ID coincide
         if int(cliente.id) == int(id):
 
             # Retorna el cliente encontrado
