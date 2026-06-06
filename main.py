@@ -106,9 +106,7 @@ def eliminar_factura(id: int):
     raise HTTPException(status_code=404, detail="Factura no encontrada")
 
 
-# ==========================================
-# 5. ENDPOINTS PARA TRANSACCIONES
-# ==========================================
+
 
 @app.get("/transacciones")
 def listar_transacciones():
