@@ -3,9 +3,7 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-# ==========================================
-# 1. MODELOS DE DATOS (PYDANTIC)
-# ==========================================
+
 
 class Cliente(BaseModel):
     id: int
@@ -25,17 +23,13 @@ class Transaccion(BaseModel):
     factura_id: int
 
 
-# ==========================================
-# 2. BASES DE DATOS SIMULADAS (LISTAS)
-# ==========================================
+
 lista_clientes = []
 lista_facturas = []
 lista_transacciones = []
 
 
-# ==========================================
-# 3. ENDPOINTS PARA CLIENTES
-# ==========================================
+
 
 @app.get("/clientes")
 def listar_clientes():
