@@ -74,9 +74,6 @@ def eliminar_cliente(id: int):
     raise HTTPException(status_code=404, detail="Cliente no encontrado")
 
 
-# ==========================================
-# 4. ENDPOINTS PARA FACTURAS
-# ==========================================
 
 @app.get("/facturas")
 def listar_facturas():
