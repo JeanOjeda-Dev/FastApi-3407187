@@ -1,55 +1,40 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from pydantic import BaseModel
-
-# Importamos los routers de los otros archivos
-from facturas import router as router_facturas
-from transacciones import router as router_transacciones
 
 app = FastAPI()
 
-# Incluimos las rutas de los otros archivos en la aplicación principal
-app.include_router(router_facturas)
-app.include_router(router_transacciones)
+lista_clientes = [
+    {
+    "id": 1, 
+    "nombre": "Lady", 
+    "email": "lady@gmail.com", 
+    "edad": 22, 
+    "descripcion": "NA"
+    },
+    {
+    "id": 2, 
+    "nombre": "Luis", 
+    "email": "luis@gmail.com", 
+    "edad": 19, 
+    "descripcion": "NA"
+    },
+    {
+    "id": 3, 
+    "nombre": "Ana", 
+    "email": "ana@gmail.com", 
+    "edad": 23, 
+    "descripcion": "NA"
+    }
+]
 
-class Cliente(BaseModel):
-    id: int
-    nombre: str
-    descripcion: str | None = None
-
-lista_clientes = []
 
 @app.get("/clientes")
 def listar_clientes():
-    return {"Clientes": lista_clientes}
+    return lista_clientes
 
-@app.get("/clientes/{id}")
-def obtener_cliente_por_id(id: int):
-    for cliente in lista_clientes:
-        if int(cliente.id) == int(id):
-            return {"Cliente": cliente}
-    raise HTTPException(status_code=404, detail="Cliente no encontrado")
 
-@app.post("/clientes")
-def crear_cliente(datos_cliente: Cliente):
-    lista_clientes.append(datos_cliente)
-    return {"mensaje": "Se creó el cliente con éxito"}
-
-@app.put("/clientes/{id}")
-def editar_cliente(id: int, datos_cliente: Cliente):
-    posicion = 0
-    for cliente in lista_clientes:
-        if int(cliente.id) == int(id):
-            lista_clientes[posicion] = datos_cliente
-            return {"mensaje": "Cliente actualizado correctamente"}
-        posicion = posicion + 1
-    raise HTTPException(status_code=404, detail="Cliente no encontrado")
-
-@app.delete("/clientes/{id}")
-def eliminar_cliente(id: int):
-    posicion = 0
-    for cliente in lista_clientes:
-        if int(cliente.id) == int(id):
-            lista_clientes.pop(posicion)
-            return {"mensaje": "Cliente eliminado correctamente"}
-        posicion = posicion + 1
-    raise HTTPException(status_code=404, detail="Cliente no encontrado")
+@app.get("/clientes/{cliente_id}")
+def listar_cliente(cliente_id: int):
+    for i, obj_cliente in enumerate (lista_clientes):
+        if obj_cliente.get("id") == cliente_id:
+            return obj_cliente
