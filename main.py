@@ -3,38 +3,37 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-lista_clientes = [
-    {
-    "id": 1, 
-    "nombre": "Lady", 
-    "email": "lady@gmail.com", 
-    "edad": 22, 
-    "descripcion": "NA"
-    },
-    {
-    "id": 2, 
-    "nombre": "Luis", 
-    "email": "luis@gmail.com", 
-    "edad": 19, 
-    "descripcion": "NA"
-    },
-    {
-    "id": 3, 
-    "nombre": "Ana", 
-    "email": "ana@gmail.com", 
-    "edad": 23, 
-    "descripcion": "NA"
-    }
-]
+
+#crear el modelo clientes(id, nombre, email, descripcion)
+class Cliente(BaseModel):
+    id: int 
+    nombre: str
+    email: str
+    descripcion: str
 
 
+
+lista_clientes:list[Cliente] = []
+
+
+
+
+#endpoint, para optener o listar todos los clientes 
 @app.get("/clientes")
 def listar_clientes():
     return lista_clientes
 
-
+#endpoint, para optener o listar un solo cliente de la lista  
 @app.get("/clientes/{cliente_id}")
 def listar_cliente(cliente_id: int):
+    #recorer la lista_clientes 
     for i, obj_cliente in enumerate (lista_clientes):
         if obj_cliente.get("id") == cliente_id:
             return obj_cliente
+        
+#endpoint, para crear un cliente, y agregar a la lista
+@app.post("/clientes/")
+def crear_cliente(datos_cliente: Cliente):
+    lista_clientes.append(datos_cliente)
+    return datos_cliente
+    
